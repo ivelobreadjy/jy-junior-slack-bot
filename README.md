@@ -1,7 +1,7 @@
 jyjunior - my slack bot
 a slack bot built with node.js and the Slack bot framework, replying to messages and responds to slash commands. built and hosted 24/7 on nest.
 features are: 
-1. replies when a user says hi or hello to my bot.
+1. replies when a user says hi or hello to my bot. (i also have added an additional line of code so that the bot can reply to other messages such as 'who are you' or 'what is this' or 'are you a bot', etc.)
 2. /jy-junior-ping, checks the bots latency and replies with the round trip time
 3. /jy-junior-help, lists all available commands
 4. /jy-junior-catfact — fetches a random cat fact from an API
