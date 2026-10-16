@@ -6,8 +6,10 @@ features are:
 3. /jy-junior-help, lists all available commands
 4. /jy-junior-catfact — fetches a random cat fact from an API
 5. /jy-junior-joke — fetches a random joke from an API
-Built with
-Node.js
+6. /jy-junior-advice - gives random advice from an API
+7. /jy-junior 8ball- magic 8-ball, picks a random answer
+8. /jy-junior roll - rolls a dice (default 6 sides, but user can choose however many sides he/she likes)
+Built with Node.js
 @slack/bolt — Slack app framework
 dotenv — loads secret tokens from a .env file
 axios — makes requests to external APIs
