@@ -15,17 +15,23 @@ Built with Node.js
 dotenv — loads secret tokens from a .env file
 axios — makes requests to external APIs
 Socket Mode — so the bot connects to Slack without needing a public web server
-Running it locally
 
+To run it locally,
 clone this repo:
    git clone https://github.com/ivelobreadjy/jy-junior-slack-bot.git
    cd jy-junior-slack-bot
+   
 install the dependencies:
+
    npm install
 create a .env file in the project folder with your Slack tokens:
+
    SLACK_BOT_TOKEN=xoxb-your-bot-token
+   
    SLACK_APP_TOKEN=xapp-your-app-level-token
+   
    SLACK_SIGNING_SECRET=your-signing-secret
+   
 start the bot:
    node app.js
 when it's running you'll see ⚡️ jy junior is running! in the terminal. 
