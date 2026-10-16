@@ -9,12 +9,14 @@ features are:
 6. /jy-junior-advice - gives random advice from an API
 7. /jy-junior 8ball- magic 8-ball, picks a random answer
 8. /jy-junior roll - rolls a dice (default 6 sides, but user can choose however many sides he/she likes)
+
 Built with Node.js
 @slack/bolt — Slack app framework
 dotenv — loads secret tokens from a .env file
 axios — makes requests to external APIs
 Socket Mode — so the bot connects to Slack without needing a public web server
 Running it locally
+
 clone this repo:
    git clone https://github.com/ivelobreadjy/jy-junior-slack-bot.git
    cd jy-junior-slack-bot
