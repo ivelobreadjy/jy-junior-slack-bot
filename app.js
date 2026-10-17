@@ -11,8 +11,24 @@ const app = new App({
 
 // Reply when someone says "hi"
 app.message('hi', async ({ message, say }) => {
-  await say(`Hey there <@${message.user}>! 👋`);
+  await say(`Hey there <@${message.user}>! 👋 How can I help you today?`);
 });
+
+// Reply when someone says "hello"
+app.message('hello', async ({ message, say }) => {
+  await say(`Hello <@${message.user}>! 👋 How can I help you today?`);
+});
+
+
+ // Reply when someone asks what the bot is
+app.message(
+  /^(what is this|who are you|who r u|ru a bot|are you a bot|r u a bot|what are you|who ru)[?!.,\s]*$/i,
+  async ({ message, say }) => {
+    await say(
+      `Hi <@${message.user}>! 👋 I'm jy junior, a Slack bot here to help you! 🤖 Jing yew might be busy right now, so I will be handling your enquiries if any! Type /jy-junior-help to see what I can do for you. `
+    );
+  }
+);
 
 // Slash command: /jy-junior-ping — replies with latency
 app.command('/jy-junior-ping', async ({ ack, respond }) => {
@@ -30,7 +46,10 @@ app.command('/jy-junior-help', async ({ ack, respond }) => {
 `Available Commands:
 /jy-junior-ping - Check bot latency
 /jy-junior-catfact - Get a cat fact
-/jy-junior-joke - Get a random joke`
+/jy-junior-joke - Get a random joke
+/jy-junior-8ball - Ask the magic 8-ball a question
+/jy-junior-roll - Roll a dice (optionally give it a number of sides)
+/jy-junior-advice - Get a random piece of advice`
   });
 });
 
@@ -61,9 +80,69 @@ ${response.data.punchline}`
   }
 });
 
+// Slash command: /jy-junior-8ball — magic 8-ball, picks a random answer
+app.command('/jy-junior-8ball',async ({ ack, respond, command }) => {
+  await ack();
+  const answers = [
+    "It is certain.",
+    "It is decidedly so.",
+    "Without a doubt.",
+    "Yes - definitely.",
+    "You may rely on it.",
+    "As I see it, yes.",
+    "Most likely.",
+    "Outlook good.",
+    "Yes.",
+    "Signs point to yes.",
+    "Reply hazy, try again.",
+    "Ask again later.",
+    "Better not tell you now.",
+    "Cannot predict now.",
+    "Concentrate and ask again.",
+    "Don't count on it.",
+    "My reply is no.",
+    "My sources say no.",
+    "Outlook not so good.",
+    "Very doubtful."
+  ];
+
+  //Pick a random answer from the list
+  const answer = answers[Math.floor(Math.random() * answers.length)];
+  const question = command.text;
+  if (question) {
+    await respond(` 🎱 You asked: "${question}"\nAnswer: ${answer}`);
+  } else {
+    await respond(' 🎱 Please ask a question after the command, e.g., /jy-junior-8ball Will I get a raise?');
+  }
+});
+
+// Slash command: /jy-junior-roll — rolls a dice (default 6 sides)
+app.command('/jy-junior-roll', async ({command, ack, respond}) => {
+  await ack();
+
+  // Use the number the user typed, or default to 6 sides
+  let sides = parseInt(command.text);
+  if (isNaN(sides) || sides < 1) {
+    sides = 6;
+  }
+
+  const result = Math.floor(Math.random() * sides) + 1;
+  await respond(`🎲 You rolled a ${result} (1-${sides})`)
+});
+
+// Slash command: /jy-junior-advice — fetches a random piece of advice from an API
+app.command('/jy-junior-advice', async ({ ack, respond }) => {
+  await ack();
+  try {
+    const response = await axios.get('https://api.adviceslip.com/advice');
+    await respond({ text: `💡 Advice:\n${response.data.slip.advice}` });
+  } catch (err) {
+    await respond({ text: 'Failed to fetch advice.' });
+  }
+});
+
+
 (async () => {
   await app.start();
   console.log('⚡️ jy junior is running!');
 })();
-
-
