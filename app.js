@@ -49,7 +49,8 @@ app.command('/jy-junior-help', async ({ ack, respond }) => {
 /jy-junior-joke - Get a random joke
 /jy-junior-8ball - Ask the magic 8-ball a question
 /jy-junior-roll - Roll a dice (optionally give it a number of sides)
-/jy-junior-advice - Get a random piece of advice`
+/jy-junior-advice - Get a random piece of advice
+/jy-junior-apod - NASA Astronomy Picture of the Day`
   });
 });
 
@@ -141,6 +142,56 @@ app.command('/jy-junior-advice', async ({ ack, respond }) => {
   }
 });
 
+// Slash command: /jy-junior-apod — NASA Astronomy Picture of the Day
+app.command('/jy-junior-apod', async ({ ack, respond }) => {
+  await ack();
+  try {
+    const apiKey = process.env.NASA_API_KEY;
+    const response = await axios.get(`https://api.nasa.gov/planetary/apod?api_key=${apiKey}`);
+    const data = response.data; 
+    console.log('APOD DATA:',data.media_type, '|', data.url);
+    
+    // NASA sometimes returns a fallback image (its own logo) when the real image is unavaliable.
+    const isFallback = !data.url || data.url.includes('nasa-logo') || data.title === 'NASA Science';
+    if (isFallback) {
+      await respond({ text: "NASA's piccture of the day isn't available right now.(Their API returned a placeholder) Try again later! 🛰️" });
+      return;
+    }
+    
+    if (data.media_type === 'image') {
+      await respond({
+        blocks: [
+          {
+            type: 'section',
+            text: {
+              type: 'mrkdwn',
+              text: `*NASA Astronomy Picture of the Day*\n*${data.title}* (${data.date})`,
+            },
+          },
+          {
+            type: 'image',
+            image_url: data.url,
+            alt_text: data.title,
+          },
+          {
+            type: 'section',
+            text: {
+              type: 'mrkdwn',
+              text: data.explanation.slice(0, 2900),
+            },
+          },
+        ],
+      });
+    } else {
+      await respond({
+        text: `NASA Astronomy Picture of the Day\n*${data.title}* (${data.date})\n${data.url}\n\n${data.explanation.slice(0, 2900)}`,
+      });
+    }
+      } catch (err) {
+    console.log('APOD ERROR:', err.response ? err.response.data : err.message);
+    await respond({ text: "Couldn't reach NASA right now — their API may be having a moment. Try again in a bit! 🛰️" });
+  }
+});
 
 (async () => {
   await app.start();
