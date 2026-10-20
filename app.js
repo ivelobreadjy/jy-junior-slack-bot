@@ -50,7 +50,8 @@ app.command('/jy-junior-help', async ({ ack, respond }) => {
 /jy-junior-8ball - Ask the magic 8-ball a question
 /jy-junior-roll - Roll a dice (optionally give it a number of sides)
 /jy-junior-advice - Get a random piece of advice
-/jy-junior-apod - NASA Astronomy Picture of the Day`
+/jy-junior-apod - NASA Astronomy Picture of the Day
+/jy-junior-quote - Get a random inspirational quote`
   });
 });
 
@@ -190,6 +191,19 @@ app.command('/jy-junior-apod', async ({ ack, respond }) => {
       } catch (err) {
     console.log('APOD ERROR:', err.response ? err.response.data : err.message);
     await respond({ text: "Couldn't reach NASA right now — their API may be having a moment. Try again in a bit! 🛰️" });
+  }
+});
+
+// Slash command: jy-junior-quote — fetches a random inspirational quote
+app.command('jy-junior-quote', async ({ack, respond}) => {
+  await ack();
+try {
+    const response = await axios.get('https://dummyjson.com/quotes/random');
+  const quote = response.data[0];
+  await respond({ text: `💬 "${quote.q}"\n— *${quote.a}*` });
+} catch (err) {
+    console.log('QUOTE ERROR:', err.response ? err.response.data : err.message);
+    await respond({ text: "Couldn't fetch a quote right now. Try again in a bit!"});
   }
 });
 

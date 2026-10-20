@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>jy junior slack bot</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        line-height: 1.6;
+        color: #222;
+        background: #fafafa;
+    }
+
+    .container {
+        max-width: 760px;
+        margin: 0 auto;
+        padding: 80px 24px;
+
+    }
+
+    header {
+        border-bottom: 1px solid #e5e5e5;
+        padding-bottom: 40px;
+        margin-bottom: 48px;
+    }
+
+     h1 {
+      font-size: 2.5rem;
+      font-weight: 700;
+      margin-bottom: 8px;
+      letter-spacing: -0.02em;
+    }
+
+    .tagline {
+      color: #666;
+      font-size: 1.1rem;
+    }
+
+    section {
+      margin-bottom: 48px;
+    }
+
+    h2 {
+      font-size: 1.4rem;
+      font-weight: 600;
+      margin-bottom: 16px;
+      letter-spacing: -0.01em;
+    }
+
+    p {
+      margin-bottom: 12px;
+    }
+
+    .commands {
+      list-style: none;
+      border: 1px solid #e5e5e5;
+      border-radius: 8px;
+      overflow: hidden;
+    }
+
+    .commands li {
+        padding: 14px 18px;
+        border-bottom: 1px solid #f0f0f0;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+        align-items: baseline;
+
+    }
+
+    .commands li:last-child {
+      border-bottom: none;
+    }
+
+    code{
+        background: #f0f0f0;
+        padding: 2px 8px;
+        border-radius: 4px;
+        font-family: "SF Mono", Monaco, Consolas, monospace;
+        font-size: 0.9em;
+        color: #c7254e;
+        white-space: nowrap;
+    }
+
+    .cmd-desc {
+        color: #555;
+        font-size: 0.95rem;
+    }
+
+    .try,box {
+        background: #fff;
+        border: 1px solid #e5e5e5;
+        border-radius: 8px;
+        padding: 20px 24px;
+    }
+
+    .try-box strong{ 
+        display: block;
+        margin-bottom: 8px;
+    
+    }
+
+    .tech {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+    }
+
+    .tech span {
+        background: #fff;
+        border: 1px solid #e5e5e5;
+        padding: 4px 8px;
+        border-radius: 20px;
+        font-size: 0.9rem;
+        color: #444;
+    }
+
+    a.button {
+        display:inline-block;
+        background: #222;
+        color: #fff;
+        padding: 12px 24px;
+        border-radius: 6px;
+        text-decoration: none;
+        font-weight: 500;
+        transition: background 0.15s;
+    }
+     a.button:hover {
+      background: #000;
+    }
+
+    footer {
+      margin-top: 72px;
+      padding-top: 24px;
+      border-top: 1px solid #e5e5e5;
+      color: #888;
+      font-size: 0.9rem;
+      text-align: center;
+    }
+
+    footer a {
+      color: #555;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>jy junior slack bot</h1>
+      <p class="tagline">A 24/7 Slack bot built with Node.js, running on Hack Club Nest.</p>
+    </header>
+
+    <section>
+      <h2>About</h2>
+      <p>
+        jy junior is a Slack bot that responds to greetings and a growing set of slash commands, from quick utilities to extras and live data from public APIs. Built for the Stardance Challenge as a first dive into backend development, Slack APIs, and 24/7 hosting on a Linux server.
+        </p>
+         </section>
+
+    <section>
+      <h2>Commands</h2>
+      <ul class="commands">
+        <li><code>/jy-junior-ping</code><span class="cmd-desc">Check the bot's latency</span></li>
+        <li><code>/jy-junior-help</code><span class="cmd-desc">List all available commands</span></li>
+        <li><code>/jy-junior-catfact</code><span class="cmd-desc">Get a random cat fact</span></li>
+        <li><code>/jy-junior-joke</code><span class="cmd-desc">Get a random joke</span></li>
+        <li><code>/jy-junior-8ball</code><span class="cmd-desc">Ask the magic 8-ball a question</span></li>
+        <li><code>/jy-junior-roll</code><span class="cmd-desc">Roll a dice (optionally specify sides)</span></li>
+        <li><code>/jy-junior-advice</code><span class="cmd-desc">Get a random piece of advice</span></li>
+        <li><code>/jy-junior-quote</code><span class="cmd-desc">Get a random inspirational quote</span></li>
+        <li><code>/jy-junior-apod</code><span class="cmd-desc">NASA Astronomy Picture of the Day</span></li>
+      </ul>
+      <p style="margin-top: 12px; color: #666; font-size: 0.95rem;">
+        The bot also replies to friendly messages like "hi, "hello", and "who are you?"
+        </p>
+          </section>
+
+    <section>
+      <h2>Try it</h2>
+      <div class="try-box">
+        <strong>Want to see it in action?</strong>
+        Join the <a href="https://hackclub.com/slack/" target="_blank" rel="noopener">Hack Club Slack</a>,
+        head to any channel the bot is in (like <code>#bot-spam</code>), and type <code>/jy-junior-help</code>
+        to see everything it can do.
+      </div>
+    </section>
+
+    <section>
+      <h2>Built with</h2>
+      <div class="tech">
+        <span>Node.js</span>
+        <span>@slack/bolt</span>
+        <span>axios</span>
+        <span>dotenv</span>
+        <span>Hack Club Nest</span>
+        <span>systemd</span>
+      </div>
+    </section>
+
+    <section>
+      <a class="button" href="https://github.com/ivelobreadjy/jy-junior-slack-bot" target="_blank" rel="noopener">
+        View source on GitHub →
+      </a>
+    </section>
+
+    <footer>
+      Built for the <a href="https://stardance.hackclub.com/" target="_blank" rel="noopener">Stardance Challenge</a>
+      · Hosted on Hack Club Nest
+    </footer>
+  </div>
+</body>
+</html>
