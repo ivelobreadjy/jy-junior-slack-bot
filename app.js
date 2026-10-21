@@ -155,7 +155,7 @@ app.command('/jy-junior-apod', async ({ ack, respond }) => {
     // NASA sometimes returns a fallback image (its own logo) when the real image is unavaliable.
     const isFallback = !data.url || data.url.includes('nasa-logo') || data.title === 'NASA Science';
     if (isFallback) {
-      await respond({ text: "NASA's piccture of the day isn't available right now.(Their API returned a placeholder) Try again later! 🛰️" });
+      await respond({ text: "NASA's picture of the day isn't available right now.(Their API returned a placeholder) Try again later! 🛰️" });
       return;
     }
     
@@ -194,16 +194,16 @@ app.command('/jy-junior-apod', async ({ ack, respond }) => {
   }
 });
 
-// Slash command: jy-junior-quote — fetches a random inspirational quote
-app.command('jy-junior-quote', async ({ack, respond}) => {
+// Slash command: /jy-junior-quote — fetches a random inspirational quote
+app.command('/jy-junior-quote', async ({ ack, respond }) => {
   await ack();
-try {
+  try {
     const response = await axios.get('https://dummyjson.com/quotes/random');
-  const quote = response.data[0];
-  await respond({ text: `💬 "${quote.q}"\n— *${quote.a}*` });
-} catch (err) {
+    const quote = response.data;
+    await respond({ text: `💬 "${quote.quote}"\n— *${quote.author}*` });
+  } catch (err) {
     console.log('QUOTE ERROR:', err.response ? err.response.data : err.message);
-    await respond({ text: "Couldn't fetch a quote right now. Try again in a bit!"});
+    await respond({ text: "Couldn't fetch a quote right now. Try again in a bit!" });
   }
 });
 
